@@ -16,7 +16,7 @@ module Merlin
       g.helper false
     end
 
-    initializer 'merlin.load_config' do |app|
+    initializer 'merlin.load_config', :before => :load_config_initializers do |app|
       $merlin = Merlin::Configuration.new(File.join(::Rails.root, 'config', 'merlin.yml'))
     end
   end
