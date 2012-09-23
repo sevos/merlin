@@ -1,0 +1,10 @@
+development:
+  dummy:
+    name: 'Dummy app'
+
+test:
+  dummy:
+    name: 'Dummy app'
+
+production:
+  merlin_server: 'http://merlin.example.com'
