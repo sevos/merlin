@@ -1,4 +1,6 @@
-# desc "Explaining what the task does"
-# task :merlin do
-#   # Task goes here
-# end
+namespace :merlin do
+  desc "Print configuration for current environment"
+  task :config => :environment do
+    y $merlin.raw
+  end
+end

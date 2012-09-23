@@ -1,10 +1,13 @@
 module Merlin
   class Configuration
+    attr_reader :raw
+
     def initialize(config_file_path, environment = ::Rails.env, connection = nil)
       @environment = environment
       @local_raw = from_file(config_file_path)
       @remote_raw = merlin_server ? from_server(connection) : {}
-      @struct = OpenStruct.deep(@remote_raw.deep_merge(@local_raw))
+      @raw = @remote_raw.deep_merge(@local_raw)
+      @struct = OpenStruct.deep(raw.clone, true)
     end
 
     def method_missing(name, *args, &block)
@@ -29,8 +32,6 @@ module Merlin
       else
         {}
       end
-    rescue Faraday::Error::ConnectionFailed
-      {}
     end
 
     private
