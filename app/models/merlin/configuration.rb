@@ -3,7 +3,7 @@ module Merlin
     def initialize(config_file_path, environment = ::Rails.env, connection = nil)
       @environment = environment
       @local_raw = from_file(config_file_path)
-      @remote_raw = from_server(connection)
+      @remote_raw = merlin_server ? from_server(connection) : {}
       @struct = OpenStruct.deep(@remote_raw.deep_merge(@local_raw))
     end
 
@@ -18,7 +18,7 @@ module Merlin
     end
 
     def from_server(connection = nil)
-      connection ||= Faraday.new(@local_raw['merlin_url']) do |conn|
+      connection ||= Faraday.new(merlin_server) do |conn|
         conn.response :json, :content_type => /\bjson$/
         conn.adapter Faraday.default_adapter
       end
@@ -31,6 +31,12 @@ module Merlin
       end
     rescue Faraday::Error::ConnectionFailed
       {}
+    end
+
+    private
+
+    def merlin_server
+      @local_raw['merlin']
     end
   end
 end
