@@ -3,8 +3,9 @@ development:
     name: 'Dummy app'
 
 test:
+  merlin_server: 'http://merlin.example.com/'
   dummy:
-    name: 'Dummy app'
+    name: 'Dummy app test'
 
 production:
-  merlin_server: 'http://merlin.example.com'
+  merlin_server: 'http://merlin.example.com/'

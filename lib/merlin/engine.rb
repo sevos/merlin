@@ -3,6 +3,9 @@ module Merlin
     isolate_namespace Merlin
 
     require 'yaml'
+    require 'ostruct/deep'
+    require 'faraday'
+    require 'faraday_middleware'
 
     config.generators do |g|
       g.test_framework :rspec, fixture: false, view_specs: false,
@@ -11,6 +14,10 @@ module Merlin
       g.stylesheets false
       g.javascripts false
       g.helper false
+    end
+
+    initializer 'merlin.load_config' do |app|
+      $merlin = Merlin::Configuration.new(File.join(::Rails.root, 'config', 'merlin.yml'))
     end
   end
 end
