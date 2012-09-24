@@ -17,7 +17,9 @@ module Merlin
     end
 
     initializer 'merlin.load_config', :before => :load_config_initializers do |app|
-      $merlin = Merlin::Configuration.new(File.join(::Rails.root, 'config', 'merlin.yml'))
+      Merlin.instance_eval do
+        @configuration = Merlin::Configuration.new(File.join(::Rails.root, 'config', 'merlin.yml'))
+      end
     end
   end
 end
