@@ -1,3 +1,4 @@
+require "merlin/webmock" if defined? WebMock
 require "merlin/engine"
 
 module Merlin
