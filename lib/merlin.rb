@@ -1,4 +1,4 @@
-require "merlin/webmock" if defined? WebMock
+require "merlin/webmock" if Rails.env.test?
 require "merlin/engine"
 
 module Merlin

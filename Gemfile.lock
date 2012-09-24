@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    merlin (0.0.6)
+    merlin (0.0.7)
       faraday
       faraday_middleware
       rails (~> 3.2.8)

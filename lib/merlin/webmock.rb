@@ -1,1 +1,6 @@
-WebMock.disable_net_connect!(allow: /herokuapp.com/) if Rails.env.test?
+begin
+  require 'webmock'
+  WebMock.disable_net_connect!(allow: /herokuapp.com/)
+rescue
+  nil
+end
