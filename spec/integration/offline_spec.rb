@@ -17,7 +17,7 @@ describe 'dummy app' do
     }
 
     it 'fetches config from server but overrides it with local config' do
-      conn = Faraday.new('http://test.host') do |conn|
+      conn = Faraday.new('http://localhost') do |conn|
         conn.adapter :test, stubs
       end
 
