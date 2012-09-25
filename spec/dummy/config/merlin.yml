@@ -3,7 +3,7 @@ development:
     name: 'Dummy app'
 
 test:
-  merlin: 'http://merlin.example.com/'
+  merlin: 'http://localhost/'
   dummy:
     name: 'Dummy app test'
 
