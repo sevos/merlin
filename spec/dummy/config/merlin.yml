@@ -3,9 +3,10 @@ development:
     name: 'Dummy app'
 
 test:
-  merlin: 'http://localhost/'
   dummy:
     name: 'Dummy app test'
 
 production:
-  merlin: 'http://merlin.example.com/'
+  merlin: 'http://localhost/merlin'
+  dummy:
+    name: 'Dummy app test'

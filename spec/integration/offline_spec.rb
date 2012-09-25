@@ -12,7 +12,7 @@ describe 'dummy app' do
     let(:json_config) { {"dummy" => {"name" => "super app", "version" => 5}}}
     let(:stubs) {
       Faraday::Adapter::Test::Stubs.new do |stub|
-        stub.get('/config/test.json') { [200, {}, json_config] }
+        stub.get('/config/production.json') { [200, {}, json_config] }
       end
     }
 
@@ -22,7 +22,7 @@ describe 'dummy app' do
       end
 
       config = Merlin::Configuration.new(File.join(Rails.root, 'config', 'merlin.yml'),
-                                         'test', conn)
+                                         'production', conn)
 
       config.dummy.name.should == 'Dummy app test'
       config.dummy.version.should == 5
