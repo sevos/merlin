@@ -10,11 +10,16 @@ describe 'dummy app' do
 
   context 'when configuration server is available' do
     let(:json_config) { {"dummy" => {"name" => "super app", "version" => 5}}}
+    let(:dump_filepath) { File.join(Rails.root, "tmp", "merlin_offline_dump.yml") }
     let(:stubs) {
       Faraday::Adapter::Test::Stubs.new do |stub|
         stub.get('/config/production.json') { [200, {}, json_config] }
       end
     }
+
+    before do
+      File.open(dump_filepath, "w") { |file| file.puts(YAML.dump({})) }
+    end
 
     it 'fetches config from server but overrides it with local config' do
       conn = Faraday.new('http://localhost') do |conn|
@@ -23,7 +28,6 @@ describe 'dummy app' do
 
       config = Merlin::Configuration.new(File.join(Rails.root, 'config', 'merlin.yml'),
                                          'production', conn)
-
       config.dummy.name.should == 'Dummy app test'
       config.dummy.version.should == 5
     end
