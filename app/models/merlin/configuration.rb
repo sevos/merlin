@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Merlin
   class Configuration
     attr_reader :raw
@@ -28,13 +30,43 @@ module Merlin
 
       response = connection.get "/config/#{@environment}.json"
       if response.status == 200
-        response.body
+        result = response.body
+        dump_config(result) unless production_or_staging
+        result
       else
         {}
       end
+    rescue Faraday::Error::ConnectionFailed => e
+      if production_or_staging
+        raise e
+      else
+        restore_config
+      end
     end
 
-    private
+    def production_or_staging
+      ["production", "staging"].include?(::Rails.env)
+    end
+
+    def dump_config(config)
+      print_message "ONLINE - dump config in '#{dump_filepath}'."
+      File.open(dump_filepath, "w") { |file| file.puts(YAML.dump(config)) }
+    end
+
+    def restore_config
+      print_message "OFFLINE - restore config from '#{dump_filepath}'."
+      File.open(dump_filepath, "r") { |file| YAML.load(file) }
+    end
+
+    def print_message(message)
+      merlin_message = "MERLIN: #{message}"
+      Rails.logger.warn(merlin_message)
+      puts merlin_message
+    end
+
+    def dump_filepath
+      File.join(::Rails.root, "tmp", "merlin_offline_dump.yml")
+    end
 
     def merlin_server
       @local_raw['merlin']
