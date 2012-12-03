@@ -49,7 +49,6 @@ module Merlin
     end
 
     def dump_config(config)
-      print_message "ONLINE - dump config in '#{dump_filepath}'."
       File.open(dump_filepath, "w") { |file| file.puts(YAML.dump(config)) }
     end
 
