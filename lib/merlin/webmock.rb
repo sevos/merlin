@@ -1,6 +1,6 @@
 begin
   require 'webmock'
-  WebMock.enable!
+  WebMock.allow_net_connect!
 rescue LoadError
   nil
 end
