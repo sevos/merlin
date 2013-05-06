@@ -4,6 +4,7 @@ module Merlin
 
     require 'yaml'
     require 'ostruct/deep'
+    require 'ostruct/to_json'
     require 'faraday'
     require 'faraday_middleware'
 
