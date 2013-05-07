@@ -3,7 +3,7 @@ module Merlin
     isolate_namespace Merlin
 
     require 'yaml'
-    require 'ostruct/deep'
+    require 'ostruct/extensions'
     require 'faraday'
     require 'faraday_middleware'
 
