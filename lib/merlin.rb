@@ -14,8 +14,8 @@ module Merlin
     @config_path = path  
   end
 
-  def self.env=(e)
-    @env = e
+  def self.env=(env)
+    @env = env
   end
 
   def self.logger=(logger)
