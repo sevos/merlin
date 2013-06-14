@@ -1,5 +1,5 @@
-require "merlin/engine"
-require "merlin/webmock" if Rails.env.test?
+require "merlin/configuration"
+require "merlin/version"
 
 module Merlin
   def self.method_missing(*args, &block)

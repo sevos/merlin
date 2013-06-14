@@ -1,4 +1,5 @@
 require 'ostruct'
+require 'json'
 
 class OpenStruct
   def to_json

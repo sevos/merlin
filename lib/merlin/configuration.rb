@@ -1,10 +1,13 @@
 require 'yaml'
+require 'deep_merge'
+require 'ostruct/deep'
+require 'ostruct/to_json'
 
 module Merlin
   class Configuration
     attr_reader :raw
 
-    def initialize(config_file_path, environment = ::Rails.env, connection = nil)
+    def initialize(config_file_path, environment, connection = nil)
       @environment = environment
       @local_raw = from_file(config_file_path)
       @remote_raw = merlin_server ? from_server(connection) : {}
