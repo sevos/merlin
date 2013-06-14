@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Merlin::Configuration do
-  subject { Merlin::Configuration.new(File.join(Rails.root, 'config', 'merlin.yml')) }
+  subject { Merlin::Configuration.new(File.join('spec', 'fixtures', 'config', 'merlin.yml'), "test") }
 
   let(:remote_config) { { 'service'=> data } }
   let(:data) { { 'url' => url } }
