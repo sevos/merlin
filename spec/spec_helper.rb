@@ -1,4 +1,4 @@
-equire 'merlin'
+require 'merlin'
 require 'capybara/rspec'
 
 RSpec.configure do |config|
