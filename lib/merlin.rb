@@ -3,7 +3,7 @@ require "merlin/version"
 
 module Merlin
   def self.__configuration__
-    Merlin::Configuration.new(config_path, env, logger)
+    @__configuration__ ||= Merlin::Configuration.new(config_path, env, logger)
   end
   
   def self.method_missing(*args, &block)
