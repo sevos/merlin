@@ -75,9 +75,6 @@ module Merlin
     end
 
     def dump_config(config)
-      tmp_dir = "tmp"
-      dump_filepath = File.join(tmp_dir, "merlin_offline_dump.yml")
-      FileUtils.mkdir(tmp_dir) unless File.exist?(tmp_dir) && File.directory?(tmp_dir)
       File.open(dump_filepath, "w") { |file| file.puts(YAML.dump(config)) }
     end
 
@@ -90,6 +87,16 @@ module Merlin
       merlin_message = "MERLIN: #{message}"
       @logger.warn merlin_message
       puts merlin_message
+    end
+
+    def dump_filepath
+      File.join(tmp_dir, "merlin_offline_dump.yml")
+    end
+
+    def tmp_dir
+      "tmp".tap do |tmp|
+        FileUtils.mkdir(tmp) unless File.exist?(tmp) && File.directory?(tmp)
+      end
     end
 
     def merlin_server
