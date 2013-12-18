@@ -56,9 +56,9 @@ module Merlin
         conn.adapter Faraday.default_adapter
       end
 
-      Timeout.timeout(REMOTE_FETCH_TIMEOUT, Faraday::Error::ConnectionFailed) do
-        response = connection.get "/config/#{@environment}.json"
-      end
+      response = Timeout.timeout(REMOTE_FETCH_TIMEOUT, Faraday::Error::ConnectionFailed) {
+        connection.get "/config/#{@environment}.json"
+      }
 
       if response.status == 200
         result = response.body

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    merlin (0.1.11)
+    merlin (0.1.12)
       deep_merge
       faraday
       faraday_middleware
