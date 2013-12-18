@@ -5,6 +5,7 @@ require 'deep_merge' unless {}.respond_to?(:deep_merge)
 require 'ostruct'
 require 'json'
 require 'logger'
+require 'timeout'
 
 class OpenStruct
   def as_json(options = nil)
@@ -27,6 +28,7 @@ end
 
 module Merlin
   class Configuration
+    REMOTE_FETCH_TIMEOUT = 4 # 4 seconds
     attr_reader :raw
 
     def initialize(config_file_path, environment, logger = Logger.new(STDOUT), connection = nil)
@@ -54,7 +56,10 @@ module Merlin
         conn.adapter Faraday.default_adapter
       end
 
-      response = connection.get "/config/#{@environment}.json"
+      Timeout.timeout(REMOTE_FETCH_TIMEOUT, Faraday::Error::ConnectionFailed) do
+        response = connection.get "/config/#{@environment}.json"
+      end
+
       if response.status == 200
         result = response.body
         dump_config(result) unless production_or_staging
