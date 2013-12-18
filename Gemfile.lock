@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    merlin (0.1.8)
+    merlin (0.1.10)
       deep_merge
       faraday
       faraday_middleware
@@ -21,8 +21,8 @@ GEM
       ffi (~> 1.0, >= 1.0.6)
     deep_merge (1.0.0)
     diff-lcs (1.1.3)
-    faraday (0.8.7)
-      multipart-post (~> 1.1)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
     ffi (1.1.5)
