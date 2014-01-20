@@ -1,6 +1,5 @@
 require 'yaml'
 require 'faraday'
-require 'faraday_middleware'
 require 'deep_merge' unless {}.respond_to?(:deep_merge)
 require 'ostruct'
 require 'json'
@@ -52,7 +51,6 @@ module Merlin
 
     def from_server(connection = nil)
       connection ||= Faraday.new(merlin_server) do |conn|
-        conn.response :json, :content_type => /\bjson$/
         conn.adapter Faraday.default_adapter
       end
 
@@ -61,7 +59,7 @@ module Merlin
       }
 
       if response.status == 200
-        result = response.body
+        result = JSON.parse(response.body)
         dump_config(result) unless production_or_staging
         result
       else

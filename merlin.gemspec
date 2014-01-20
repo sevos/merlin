@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "faraday"
-  s.add_dependency "faraday_middleware"
   s.add_dependency "deep_merge"
   s.add_development_dependency "rspec"
   s.add_development_dependency 'capybara'

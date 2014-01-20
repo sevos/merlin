@@ -17,6 +17,6 @@ describe Merlin::Configuration do
   end
 
   it 'converts to json' do
-    subject.service.to_json.should == data.to_json
+    subject.service.to_h.to_json.should == data.to_json
   end
 end
